@@ -34,6 +34,11 @@ func (cl *Client) ASExchange(realm string, ASReq messages.ASReq, referral int) (
 		if e, ok := err.(messages.KRBError); ok {
 			switch e.ErrorCode {
 			case errorcode.KDC_ERR_PREAUTH_REQUIRED, errorcode.KDC_ERR_PREAUTH_FAILED:
+				// Restore state assumePreAuthentication on exit
+				defer func(value bool) {
+					cl.settings.assumePreAuthentication = value
+				}(cl.settings.assumePreAuthentication)
+
 				// From now on assume this client will need to do this pre-auth and set the PAData
 				cl.settings.assumePreAuthentication = true
 				err = setPAData(cl, &e, &ASReq)
