@@ -43,7 +43,8 @@ func (c *Config) GetKDCs(realm string, tcp bool) (int, map[int]string, error) {
 	if tcp {
 		proto = "tcp"
 	}
-	index, addrs, err := dnsutils.OrderedSRV("kerberos", proto, realm)
+	//index, addrs, err := dnsutils.OrderedSRV("kerberos", proto, realm)
+	index, addrs, err := c.OrderedSRV("kerberos", proto, realm)
 	if err != nil {
 		return count, kdcs, err
 	}

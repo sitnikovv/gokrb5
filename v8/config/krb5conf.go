@@ -28,6 +28,7 @@ type Config struct {
 	//CaPaths
 	//AppDefaults
 	//Plugins
+	External External
 }
 
 // WeakETypeList is a list of encryption types that have been deemed weak.
