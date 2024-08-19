@@ -12,7 +12,7 @@ require (
 	github.com/jcmturner/rpc/v2 v2.0.3
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/crypto v0.22.0
-	stash.delta.sbrf.ru/secman/vault-plugin-helpers/network v1.0.2
+	stash.delta.sbrf.ru/secman/vault-plugin-helpers/network v1.0.3
 )
 
 require (

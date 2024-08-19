@@ -1,8 +1,8 @@
 package config
 
 import (
-	"github.com/jcmturner/dnsutils/v2"
 	"net"
+	"stash.delta.sbrf.ru/secman/vault-plugin-helpers/network"
 )
 
 func (c *Config) OrderedSRV(service, proto, realm string) (int, map[int]*net.SRV, error) {
@@ -14,22 +14,12 @@ func (c *Config) OrderedSRV(service, proto, realm string) (int, map[int]*net.SRV
 	serviceName := service + "://" + realm
 	external := c.External.Discovery
 	if external == nil || external.ServiceDiscovery() == nil {
-		return dnsutils.OrderedSRV("kerberos", proto, realm)
+		list, err = network.ServiceDiscoveryOrdered(serviceName, c.External.ExternalResolvers, c.External.ExternalResolversRule, proto)
+	} else {
+		list, err = external.ServiceDiscovery()(serviceName, c.External.ExternalResolvers, c.External.ExternalResolversRule, proto)
 	}
-	if discovery := external.ServiceDiscovery(); discovery != nil {
-		list, err = discovery(serviceName, c.External.ExternalResolvers, c.External.ExternalResolversRule, proto)
-		if err != nil {
-			return 0, nil, err
-		}
-	}
-	if order := external.Order(); order != nil {
-		list = order(list)
-	}
-	if precessing := external.PostProcessing(); precessing != nil {
-		list, err = precessing(list)
-		if err != nil {
-			return 0, nil, err
-		}
+	if err != nil {
+		return 0, nil, err
 	}
 	result := map[int]*net.SRV{}
 	for i, srv := range list {

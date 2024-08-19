@@ -47,3 +47,5 @@ stash.delta.sbrf.ru/secman/vault-plugin-helpers/dnsutils v1.0.0 h1:Klt7dvC0eHVSN
 stash.delta.sbrf.ru/secman/vault-plugin-helpers/dnsutils v1.0.0/go.mod h1:t6iZ3uRabX8PbmAUw+4PdJqYAD5SjdhJ6hansBBrvzw=
 stash.delta.sbrf.ru/secman/vault-plugin-helpers/network v1.0.2 h1:LXPuVFgQlGz43+YIJoyKPvPvltZDyfwZF54LslixPJY=
 stash.delta.sbrf.ru/secman/vault-plugin-helpers/network v1.0.2/go.mod h1:ssekhR8n6Wz9Ot5JB3EQvc95p226fKYDjFfLLkpBVmk=
+stash.delta.sbrf.ru/secman/vault-plugin-helpers/network v1.0.3 h1:QL3DMQVyuNhZFL4XF3C+viPe9QUgzASBtLJUe3jfoCM=
+stash.delta.sbrf.ru/secman/vault-plugin-helpers/network v1.0.3/go.mod h1:ssekhR8n6Wz9Ot5JB3EQvc95p226fKYDjFfLLkpBVmk=
