@@ -6,8 +6,6 @@ import (
 	"net"
 	"strconv"
 	"strings"
-
-	"github.com/jcmturner/dnsutils/v2"
 )
 
 // GetKDCs returns the count of KDCs available and a map of KDC host names keyed on preference order.
@@ -70,12 +68,14 @@ func (c *Config) GetKpasswdServers(realm string, tcp bool) (int, map[int]string,
 		if tcp {
 			proto = "tcp"
 		}
-		c, addrs, err := dnsutils.OrderedSRV("kpasswd", proto, realm)
+		//cnt, addrs, err := dnsutils.OrderedSRV("kpasswd", proto, realm)
+		cnt, addrs, err := c.OrderedSRV("kpasswd", proto, realm)
 		if err != nil {
 			return count, kdcs, err
 		}
-		if c < 1 {
-			c, addrs, err = dnsutils.OrderedSRV("kerberos-adm", proto, realm)
+		if cnt < 1 {
+			//cnt, addrs, err = dnsutils.OrderedSRV("kerberos-adm", proto, realm)
+			cnt, addrs, err = c.OrderedSRV("kerberos-adm", proto, realm)
 			if err != nil {
 				return count, kdcs, err
 			}
@@ -83,7 +83,7 @@ func (c *Config) GetKpasswdServers(realm string, tcp bool) (int, map[int]string,
 		if len(addrs) < 1 {
 			return count, kdcs, fmt.Errorf("no kpasswd or kadmin SRV records found for realm %s", realm)
 		}
-		count = c
+		count = cnt
 		for k, v := range addrs {
 			kdcs[k] = strings.TrimRight(v.Target, ".") + ":" + strconv.Itoa(int(v.Port))
 		}
