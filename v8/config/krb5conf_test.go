@@ -2,6 +2,7 @@ package config
 
 import (
 	"os"
+	"strings"
 	"testing"
 	"time"
 
@@ -674,7 +675,15 @@ func TestJSON(t *testing.T) {
 	if err != nil {
 		t.Errorf("error marshaling krb config to JSON: %v", err)
 	}
-	assert.Equal(t, krb5ConfJson, j, "krb config marshaled json not as expected")
+	secmanKrb5ConfJson := strings.TrimSuffix(krb5ConfJson, "\n}") + `,
+  "External": {
+    "ExternalResolvers": null,
+    "ExternalResolversRule": "",
+    "Discovery": null
+  }
+}`
+	//assert.Equal(t, krb5ConfJson, j, "krb config marshaled json not as expected")
+	assert.Equal(t, secmanKrb5ConfJson, j, "krb config marshaled json not as expected")
 
 	t.Log(j)
 }
