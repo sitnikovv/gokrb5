@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jcmturner/gokrb5/v8/iana/etypeID"
-	"github.com/jcmturner/gokrb5/v8/iana/nametype"
-	"github.com/jcmturner/gokrb5/v8/test/testdata"
-	"github.com/jcmturner/gokrb5/v8/types"
+	"github.com/sitnikovv/gokrb5/v8/iana/etypeID"
+	"github.com/sitnikovv/gokrb5/v8/iana/nametype"
+	"github.com/sitnikovv/gokrb5/v8/test/testdata"
+	"github.com/sitnikovv/gokrb5/v8/types"
 	"github.com/stretchr/testify/assert"
 )
 

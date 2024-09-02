@@ -1,8 +1,8 @@
 package keytab
 
 import (
-	"github.com/jcmturner/gokrb5/v8/crypto"
-	"github.com/jcmturner/gokrb5/v8/types"
+	"github.com/sitnikovv/gokrb5/v8/crypto"
+	"github.com/sitnikovv/gokrb5/v8/types"
 	"time"
 )
 

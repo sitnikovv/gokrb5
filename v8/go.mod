@@ -1,4 +1,4 @@
-module github.com/jcmturner/gokrb5/v8
+module github.com/sitnikovv/gokrb5/v8
 
 go 1.21.3
 
