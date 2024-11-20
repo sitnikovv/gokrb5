@@ -6,4 +6,5 @@ type External struct {
 	ExternalResolvers     []network.ResolverIf
 	ExternalResolversRule network.ResolverRule
 	Discovery             network.Discovery
+	ExternalLogger        func(level string, args ...any)
 }

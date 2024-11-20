@@ -179,14 +179,20 @@ func (cl *Client) Login() error {
 		// no credentials but there is a session with tgt already
 		return nil
 	}
+	if cl.Config.External.ExternalLogger == nil {
+		cl.Config.External.ExternalLogger = func(_ string, _ ...any) {}
+	}
 	ASReq, err := messages.NewASReqForTGT(cl.Credentials.Domain(), cl.Config, cl.Credentials.CName())
 	if err != nil {
+		cl.Config.External.ExternalLogger("ERROR", "Request for TGT failed", "domain", cl.Credentials.Domain(), "cname", cl.Credentials.CName())
 		return krberror.Errorf(err, krberror.KRBMsgError, "error generating new AS_REQ")
 	}
 	ASRep, err := cl.ASExchange(cl.Credentials.Domain(), ASReq, 0)
 	if err != nil {
+		cl.Config.External.ExternalLogger("ERROR", "Receive TGT failed", "domain", cl.Credentials.Domain(), "cname", cl.Credentials.CName())
 		return err
 	}
+	cl.Config.External.ExternalLogger("INFO", "Get TGT success", "domain", cl.Credentials.Domain(), "cname", cl.Credentials.CName(), "start", ASRep.DecryptedEncPart.StartTime, "stop", ASRep.DecryptedEncPart.EndTime, "duration", ASRep.DecryptedEncPart.EndTime.Sub(ASRep.DecryptedEncPart.StartTime).String())
 	cl.addSession(ASRep.Ticket, ASRep.DecryptedEncPart)
 	return nil
 }
